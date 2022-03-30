@@ -154,7 +154,12 @@ class ContentEditor extends ComponentBase
           return $file;
         }
 
-        return substr_replace($file, '.'.$locale, strrpos($file, '.'), 0);
+        $localizedFile = substr_replace($file, '.'.$locale, strrpos($file, '.'), 0);
+        if ($this->fileExists($localizedFile)) {
+            return $localizedFile;
+        }
+
+        return substr_replace($file, '.'.$defaultLocale, strrpos($file, '.'), 0);
     }
 
     public function checkEditor()
